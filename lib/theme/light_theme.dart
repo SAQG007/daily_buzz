@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+const fontFamily = "Quicksand Regular";
+
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
+  fontFamily: fontFamily,
   brightness: Brightness.light,
   colorScheme: const ColorScheme.light(
     primary: Color(0xff6750A4),
@@ -27,5 +30,13 @@ ThemeData lightTheme = ThemeData(
     outline: Color(0xff79747E),
     surfaceVariant: Color(0xffE7E0EC),
     onSurfaceVariant: Color(0xff49454F),
+  ),
+  appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(
+      fontFamily: fontFamily,
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    ),
   ),
 );
