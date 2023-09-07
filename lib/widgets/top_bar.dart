@@ -1,3 +1,7 @@
+import 'package:daily_buzz/pages/business_news.dart';
+import 'package:daily_buzz/pages/menu_page.dart';
+import 'package:daily_buzz/pages/science_news.dart';
+import 'package:daily_buzz/pages/tech_news.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,21 +21,15 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin {
   final List<Tab> _topTabs = <Tab> [
     const Tab(
       icon: Icon(Icons.computer_outlined),
-      child: Text(
-        'Technology',
-      ),
     ),
     const Tab(
       icon: Icon(Icons.business_center_outlined),
-      child: Text(
-        'Business',
-      ),
     ),
     const Tab(
       icon: Icon(Icons.science_outlined),
-      child: Text(
-        'Science',
-      ),
+    ),
+    const Tab(
+      icon: Icon(Icons.menu_outlined),
     ),
   ];
 
@@ -63,8 +61,7 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          centerTitle: true,
-          title: Text(
+          title: const Text(
             "Daily Buzz",
           ),
           actions: [
@@ -77,6 +74,15 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin {
             controller: _tabController,
             tabs: _topTabs,
           ),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: const [
+            TechNews(),
+            BusinessNews(),
+            ScienceNews(),
+            MenuPage(),
+          ],
         ),
       ),
     );
