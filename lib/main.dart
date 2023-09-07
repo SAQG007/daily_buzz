@@ -1,3 +1,5 @@
+import 'package:daily_buzz/theme/dark_theme.dart';
+import 'package:daily_buzz/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
