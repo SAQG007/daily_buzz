@@ -5,6 +5,7 @@ import 'package:daily_buzz/theme/theme_preferences.dart';
 import 'package:daily_buzz/widgets/menu/long_button.dart';
 import 'package:daily_buzz/widgets/menu/mail_button.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,10 +31,19 @@ class _MenuPageState extends State<MenuPage> {
   // my GitHub profile url
   final Uri _gitHubUrl = Uri.parse('https://github.com/SAQG007');
 
+  late String _appName;
+
   @override
   void initState() {
     super.initState();
     _setThemeValue();
+    _getPackageInfo();
+  }
+
+  // get package info for accessing app name
+  Future<void> _getPackageInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    _appName = packageInfo.appName;
   }
 
   void _setThemeValue() async {
@@ -108,7 +118,7 @@ class _MenuPageState extends State<MenuPage> {
         builder: (context) => AlertDialog(
           title: const Text('Error'),
           content: const Text(
-            'Error while launching LinkedIn profile.',
+            'Error while launching profile.',
           ),
           actions: <Widget>[
             TextButton(
@@ -121,6 +131,32 @@ class _MenuPageState extends State<MenuPage> {
         ),
       );      
     }
+  }
+
+  void _showAboutDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "About",
+          ),
+          content: Text(
+            "$_appName is your go-to app for staying informed and up-to-date with the latest news and headlines.",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                "OK",
+              ),
+            ),
+          ],
+        );
+      }
+    );
   }
 
   @override
@@ -177,13 +213,16 @@ class _MenuPageState extends State<MenuPage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const LongButton(
-                    title: "About",
-                    imgName: "question-mark.png",
-                    bottomPosition: 0,
-                    rightPosition: -9.0,
-                    imgWidth: 70.0,
-                    imgHeight: 70.0
+                  GestureDetector(
+                    onTap: _showAboutDialog,
+                    child: const LongButton(
+                      title: "About",
+                      imgName: "question-mark.png",
+                      bottomPosition: 0,
+                      rightPosition: -9.0,
+                      imgWidth: 70.0,
+                      imgHeight: 70.0
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
