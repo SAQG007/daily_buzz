@@ -24,8 +24,11 @@ class _MenuPageState extends State<MenuPage> {
   // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
 
-  // my LinkedIn url
+  // my LinkedIn profile url
   final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+  
+  // my GitHub profile url
+  final Uri _gitHubUrl = Uri.parse('https://github.com/SAQG007');
 
   @override
   void initState() {
@@ -98,8 +101,8 @@ class _MenuPageState extends State<MenuPage> {
     }
   }
 
-  Future<void> _openLinkedInProfile() async {
-    if(!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
+  Future<void> _openSocialProfile(Uri profileLink) async {
+    if(!await launchUrl(profileLink, mode: LaunchMode.externalApplication)) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -139,7 +142,9 @@ class _MenuPageState extends State<MenuPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
-                        onTap: _openLinkedInProfile,
+                        onTap: () {
+                          _openSocialProfile(_linkedInUrl);
+                        },
                         child: const LongButton(
                           title: "LinkedIn",
                           imgName: "linkedin.png",
@@ -149,13 +154,18 @@ class _MenuPageState extends State<MenuPage> {
                           imgHeight: 70.0,
                         ),
                       ),
-                      const LongButton(
-                        title: "GitHub",
-                        imgName: "github.png",
-                        bottomPosition: 8.0,
-                        rightPosition: 8.0,
-                        imgWidth: 55.0,
-                        imgHeight: 55.0,
+                      GestureDetector(
+                        onTap: () {
+                          _openSocialProfile(_gitHubUrl);
+                        },
+                        child: const LongButton(
+                          title: "GitHub",
+                          imgName: "github.png",
+                          bottomPosition: 8.0,
+                          rightPosition: 8.0,
+                          imgWidth: 55.0,
+                          imgHeight: 55.0,
+                        ),
                       ),
                     ],
                   ),
