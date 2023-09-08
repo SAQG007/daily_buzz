@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:daily_buzz/theme/model_theme.dart';
 import 'package:daily_buzz/theme/theme_preferences.dart';
 import 'package:daily_buzz/widgets/menu/long_button.dart';
 import 'package:daily_buzz/widgets/menu/mail_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum ThemeValue { light, dark, system }
 
@@ -15,7 +18,11 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+
   ThemeValue? _themeValue = ThemeValue.light;
+
+  // my mail address
+  final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
 
   @override
   void initState() {
@@ -48,6 +55,46 @@ class _MenuPageState extends State<MenuPage> {
     : modelTheme.isDark = false;
   }
 
+  Future<void> _openMail() async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: _mailAddress,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Daily Buzz Feedback',
+      }),
+    );
+
+    if(await canLaunchUrl(emailLaunchUri)) {
+      launchUrl(emailLaunchUri);
+    }
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+            'Error while opening mail.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ModelTheme>(
@@ -56,11 +103,14 @@ class _MenuPageState extends State<MenuPage> {
           padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
           child: ListView(
             children: [
-              const Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MailButton(),
-                  Column(
+                  GestureDetector(
+                    onTap: _openMail,
+                    child: const MailButton(),
+                  ),
+                  const Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       LongButton(
