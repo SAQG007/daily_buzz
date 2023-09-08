@@ -24,6 +24,9 @@ class _MenuPageState extends State<MenuPage> {
   // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
 
+  // my LinkedIn url
+  final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+
   @override
   void initState() {
     super.initState();
@@ -95,6 +98,28 @@ class _MenuPageState extends State<MenuPage> {
     }
   }
 
+  Future<void> _openLinkedInProfile() async {
+    if(!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+            'Error while launching LinkedIn profile.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );      
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ModelTheme>(
@@ -110,18 +135,21 @@ class _MenuPageState extends State<MenuPage> {
                     onTap: _openMail,
                     child: const MailButton(),
                   ),
-                  const Column(
+                  Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      LongButton(
-                        title: "LinkedIn",
-                        imgName: "linkedin.png",
-                        bottomPosition: 0,
-                        rightPosition: 0,
-                        imgWidth: 70.0,
-                        imgHeight: 70.0,
+                      GestureDetector(
+                        onTap: _openLinkedInProfile,
+                        child: const LongButton(
+                          title: "LinkedIn",
+                          imgName: "linkedin.png",
+                          bottomPosition: 0,
+                          rightPosition: 0,
+                          imgWidth: 70.0,
+                          imgHeight: 70.0,
+                        ),
                       ),
-                      LongButton(
+                      const LongButton(
                         title: "GitHub",
                         imgName: "github.png",
                         bottomPosition: 8.0,
