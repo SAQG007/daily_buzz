@@ -142,7 +142,7 @@ class _MenuPageState extends State<MenuPage> {
             "About",
           ),
           content: Text(
-            "$_appName is your go-to app for staying informed and up-to-date with the latest news and headlines.",
+            "$_appName is your go-to app for staying informed and up-to-date with the latest news and headlines. With a user-friendly interface and a choice between light and dark themes.",
           ),
           actions: [
             TextButton(
