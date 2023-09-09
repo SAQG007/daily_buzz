@@ -45,6 +45,8 @@ class _NewsCardState extends State<NewsCard> {
                 ),
                 Text(
                   "Weekly Tech Recap: Jio celebrates 7th anniversary, Realme Narzo 60x launch, more",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
