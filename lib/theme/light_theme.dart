@@ -39,4 +39,12 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
+  textTheme: const TextTheme(
+    labelLarge: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+    labelMedium: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
 );

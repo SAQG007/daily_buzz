@@ -38,4 +38,12 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w600,
     ),
   ),
+  textTheme: const TextTheme(
+    labelLarge: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+    labelMedium: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
 );
