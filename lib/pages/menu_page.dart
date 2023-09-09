@@ -9,8 +9,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-enum ThemeValue { light, dark, system }
-
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
 
@@ -19,8 +17,6 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-
-  ThemeValue? _themeValue = ThemeValue.light;
 
   // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
@@ -36,7 +32,6 @@ class _MenuPageState extends State<MenuPage> {
   @override
   void initState() {
     super.initState();
-    _setThemeValue();
     _getPackageInfo();
   }
 
@@ -46,29 +41,15 @@ class _MenuPageState extends State<MenuPage> {
     _appName = packageInfo.appName;
   }
 
-  void _setThemeValue() async {
+  void _toggleTheme(ModelTheme modelTheme) async {
     ThemePreferences themePreferences = ThemePreferences();
 
     late bool isDarkThemeEnabled;
     isDarkThemeEnabled = await themePreferences.getTheme();
 
     isDarkThemeEnabled
-    ? _themeValue = ThemeValue.dark
-    : _themeValue = ThemeValue.light;
-  }
-
-  void _changeThemeValue(ModelTheme modelTheme) {
-    _themeValue == ThemeValue.dark
-    ? _themeValue = ThemeValue.light
-    : _themeValue = ThemeValue.dark;
-
-    _toggleTheme(modelTheme);
-  }
-
-  void _toggleTheme(ModelTheme modelTheme) {
-    _themeValue == ThemeValue.dark
-    ? modelTheme.isDark = true
-    : modelTheme.isDark = false;
+    ? modelTheme.isDark = false
+    : modelTheme.isDark = true;
   }
 
   Future<void> _openMail() async {
@@ -83,7 +64,7 @@ class _MenuPageState extends State<MenuPage> {
       scheme: 'mailto',
       path: _mailAddress,
       query: encodeQueryParameters(<String, String>{
-        'subject': 'Daily Buzz Feedback',
+        'subject': '$_appName Feedback',
       }),
     );
 
@@ -118,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
         builder: (context) => AlertDialog(
           title: const Text('Error'),
           content: const Text(
-            'Error while launching profile.',
+            'Error while opening profile.',
           ),
           actions: <Widget>[
             TextButton(
@@ -226,7 +207,7 @@ class _MenuPageState extends State<MenuPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _changeThemeValue(modelTheme);
+                      _toggleTheme(modelTheme);
                     },
                     child: const LongButton(
                       title: "Change Theme",
