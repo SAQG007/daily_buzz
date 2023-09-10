@@ -23,6 +23,7 @@ class _SplashScreenCompletionState extends State<SplashScreenCompletion> {
       )
       .animate()
       .slide(begin: const Offset(0, 8))
+      .fadeOut(delay: 1.seconds)
       .callback(callback: (_) => widget.sendAPICall()),
     );
   }
