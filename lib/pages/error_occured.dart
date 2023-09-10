@@ -1,14 +1,22 @@
-import 'package:daily_buzz/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class NoInternet extends StatefulWidget {
-  const NoInternet({ Key? key }) : super(key: key);
+class ErrorOccured extends StatefulWidget {
+  final String imgName;
+  final Widget redirectTo;
+
+  const ErrorOccured({
+    required this.imgName,
+    required this.redirectTo,
+    Key? key
+  }) : super(key: key);
 
   @override
-  _NoInternetState createState() => _NoInternetState();
+  _ErrorOccuredState createState() => _ErrorOccuredState();
 }
 
-class _NoInternetState extends State<NoInternet> {
+class _ErrorOccuredState extends State<ErrorOccured> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +26,8 @@ class _NoInternetState extends State<NoInternet> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Image.asset(
-                'assets/images/illustrations/no-internet.png',
+              child: SvgPicture.asset(
+                'assets/images/illustrations/${widget.imgName}',
                 width: 350.0,
                 height: 350.0,
               ),
@@ -29,7 +37,7 @@ class _NoInternetState extends State<NoInternet> {
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget.redirectTo));
                   },
                   label: const Text("Retry"),
                   icon: const Icon(Icons.refresh_outlined),

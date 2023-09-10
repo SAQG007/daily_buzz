@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:daily_buzz/pages/no_internet.dart';
+import 'package:daily_buzz/pages/error_occured.dart';
 import 'package:daily_buzz/widgets/splash_screen/splash_screen_completion.dart';
 import 'package:daily_buzz/widgets/splash_screen/splash_screen_loading.dart';
 import 'package:daily_buzz/widgets/top_bar.dart';
@@ -48,7 +48,10 @@ class _SplashScreenState extends State<SplashScreen> {
         fontSize: 16.0,
         backgroundColor: Theme.of(context).colorScheme.outline,
       );
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NoInternet()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ErrorOccured(
+        imgName: 'no-internet.svg',
+        redirectTo: SplashScreen(),
+      )));
     }
   }
 
@@ -86,7 +89,10 @@ class _SplashScreenState extends State<SplashScreen> {
           }
           else if (snapshot.hasError) {
             // API call encountered an error
-            return Text("Error: ${snapshot.error}");
+            return const ErrorOccured(
+              imgName: 'error.svg',
+              redirectTo: SplashScreen(),
+            );
           }
           else {
             // API call completed successfully
