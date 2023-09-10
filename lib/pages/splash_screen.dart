@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:daily_buzz/pages/no_internet.dart';
 import 'package:daily_buzz/widgets/splash_screen/splash_screen_completion.dart';
 import 'package:daily_buzz/widgets/splash_screen/splash_screen_loading.dart';
 import 'package:daily_buzz/widgets/top_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -28,10 +33,27 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _checkInternetConnection();
+  }
+
+  Future<void> _checkInternetConnection() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+
+    if(connectivityResult == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+        msg: "No internet connection",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        fontSize: 16.0,
+        backgroundColor: Theme.of(context).colorScheme.outline,
+      );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NoInternet()));
+    }
   }
 
   // Simulate an API call by using a Future.delayed
-  Future<void> _simulateApiCall() async {
+  Future<void> _simulateAPICall() async {
     // sending requests
     final techResponse = await http.get(Uri.parse(_techAPIUrl));
     final businessResponse = await http.get(Uri.parse(_businessAPIUrl));
@@ -56,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: _simulateApiCall(),
+        future: _simulateAPICall(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // API call is still in progress
@@ -70,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // API call completed successfully
             return SplashScreenCompletion(
               sendAPICall: () {
-                _simulateApiCall();
+                _simulateAPICall();
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TopBar(
                   techData: _techJSON,
                   businessData: _businessJSON,

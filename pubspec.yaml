@@ -41,6 +41,8 @@ dependencies:
   url_launcher: ^6.1.14
   package_info_plus: ^4.1.0
   flutter_animate: ^4.2.0+1
+  connectivity_plus: ^4.0.2
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:
