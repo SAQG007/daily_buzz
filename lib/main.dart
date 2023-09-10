@@ -1,7 +1,7 @@
+import 'package:daily_buzz/pages/splash_screen.dart';
 import 'package:daily_buzz/theme/dark_theme.dart';
 import 'package:daily_buzz/theme/light_theme.dart';
 import 'package:daily_buzz/theme/model_theme.dart';
-import 'package:daily_buzz/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
             theme: modelTheme.isDarkTheme ? darkTheme : lightTheme,
-            home: const TopBar(),
+            home: const SplashScreen(),
           );
         },
       ),
