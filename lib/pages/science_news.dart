@@ -24,6 +24,7 @@ class _ScienceNewsState extends State<ScienceNews> {
         return NewsCard(
           imgLink: article['image'],
           title: article['title'],
+          newsLink: article['url'],
           sourceName: article['source']['name'],
           sourceLink: article['source']['url'],
         );
