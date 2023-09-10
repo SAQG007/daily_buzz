@@ -6,7 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TopBar extends StatefulWidget {
-  const TopBar({ Key? key }) : super(key: key);
+  final Map<String, dynamic> techData;
+  final Map<String, dynamic> businessData;
+  final Map<String, dynamic> scienceData;
+
+  const TopBar({
+    required this.techData,
+    required this.businessData,
+    required this.scienceData,
+    Key? key
+  }) : super(key: key);
 
   @override
   _TopBarState createState() => _TopBarState();
@@ -77,11 +86,17 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [
-            TechNews(),
-            BusinessNews(),
-            ScienceNews(),
-            MenuPage(),
+          children: [
+            TechNews(
+              techData: widget.techData,
+            ),
+            BusinessNews(
+              businessData: widget.businessData,
+            ),
+            ScienceNews(
+              scienceData: widget.scienceData,
+            ),
+            const MenuPage(),
           ],
         ),
       ),

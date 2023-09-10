@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> { 
 
   // API urls
   final String _techAPIUrl = "https://gnews.io/api/v4/top-headlines?category=technology&lang=en&apikey=53c20ad9d0b1d6ed7d9d97ad44d28b79";
@@ -24,10 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Map<String, dynamic> _techJSON = {};
   Map<String, dynamic> _businessJSON = {};
   Map<String, dynamic> _scienceJSON = {};
+  
+  @override
+  void initState() {
+    super.initState();
+  }
 
   // Simulate an API call by using a Future.delayed
   Future<void> _simulateApiCall() async {
-    // await Future.delayed(const Duration(seconds: 3)); // Replace this with your actual API call
     // sending requests
     final techResponse = await http.get(Uri.parse(_techAPIUrl));
     final businessResponse = await http.get(Uri.parse(_businessAPIUrl));
@@ -67,7 +71,11 @@ class _SplashScreenState extends State<SplashScreen> {
             return SplashScreenCompletion(
               sendAPICall: () {
                 _simulateApiCall();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const TopBar()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TopBar(
+                  techData: _techJSON,
+                  businessData: _businessJSON,
+                  scienceData: _scienceJSON,
+                )));
               },
             );
           }

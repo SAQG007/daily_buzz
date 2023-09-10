@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 class NewsCard extends StatefulWidget {
-  const NewsCard({Key? key}) : super(key: key);
+  final String imgLink;
+  final String title;
+  final String sourceName;
+  final String sourceLink;
+
+  const NewsCard({
+    required this.imgLink,
+    required this.title,
+    required this.sourceName,
+    required this.sourceLink,
+    Key? key
+  }) : super(key: key);
 
   @override
   _NewsCardState createState() => _NewsCardState();
@@ -24,27 +35,39 @@ class _NewsCardState extends State<NewsCard> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15.0),
                   child: Image.network(
-                    "https://www.livemint.com/lm-img/img/2023/09/09/600x338/Realme_Narzo_60x_1693988636243_1694250576137.webp",
-                    fit: BoxFit.fill,
+                    widget.imgLink,
+                    height: 200,
+                    width: 600,
+                    fit: BoxFit.contain,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) {
                         return child;
                       }
                       return const SizedBox(
-                        height: 190,
+                        height: 200,
                         width: 600,
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
                       );
                     },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Text(
+                        "Error",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      );
+                    },
                   ),
                 ),
+                // Text(
+                //   widget.imgLink,
+                //   style: Theme.of(context).textTheme.labelLarge,
+                // ),
                 const SizedBox(
                   height: 20.0,
                 ),
                 Text(
-                  "Weekly Tech Recap: Jio celebrates 7th anniversary, Realme Narzo 60x launch, more",
+                  widget.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelLarge,
@@ -65,9 +88,9 @@ class _NewsCardState extends State<NewsCard> {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   minimumSize: MaterialStatePropertyAll(Size(0, 0)),
                 ),
-                child: const Text(
-                  "Mint",
-                  style: TextStyle(
+                child: Text(
+                  widget.sourceName,
+                  style: const TextStyle(
                     decoration: TextDecoration.underline,
                   ),
                 ),
