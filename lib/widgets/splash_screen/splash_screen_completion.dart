@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class SplashScreenCompletion extends StatefulWidget {
-  final VoidCallback sendAPICall;
+  final VoidCallback callBackFunction;
 
   const SplashScreenCompletion({
-    required this.sendAPICall,
+    required this.callBackFunction,
     Key? key
   }) : super(key: key);
 
@@ -24,7 +24,7 @@ class _SplashScreenCompletionState extends State<SplashScreenCompletion> {
       .animate()
       .slide(begin: const Offset(0, 8))
       .fadeOut(delay: 1.seconds)
-      .callback(callback: (_) => widget.sendAPICall()),
+      .callback(duration: 200.ms, callback: (_) => widget.callBackFunction()),
     );
   }
 }

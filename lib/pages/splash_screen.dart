@@ -99,8 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
           else {
             // API call completed successfully
             return SplashScreenCompletion(
-              sendAPICall: () {
-                _simulateAPICall();
+              callBackFunction: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TopBar(
                   techData: _techJSON,
                   businessData: _businessJSON,
