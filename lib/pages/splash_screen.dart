@@ -51,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ErrorOccured(
         imgName: 'no-internet.svg',
         redirectTo: SplashScreen(),
+        showRetryButton: true,
       )));
     }
   }
@@ -92,6 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
             return const ErrorOccured(
               imgName: 'error.svg',
               redirectTo: SplashScreen(),
+              showRetryButton: true,
             );
           }
           else {

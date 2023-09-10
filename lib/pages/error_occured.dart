@@ -3,11 +3,13 @@ import 'package:flutter_svg/svg.dart';
 
 class ErrorOccured extends StatefulWidget {
   final String imgName;
-  final Widget redirectTo;
+  final Widget? redirectTo;
+  final bool showRetryButton;
 
   const ErrorOccured({
     required this.imgName,
-    required this.redirectTo,
+    this.redirectTo,
+    required this.showRetryButton,
     Key? key
   }) : super(key: key);
 
@@ -32,15 +34,18 @@ class _ErrorOccuredState extends State<ErrorOccured> {
                 height: 350.0,
               ),
             ),
-            Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget.redirectTo));
-                  },
-                  label: const Text("Retry"),
-                  icon: const Icon(Icons.refresh_outlined),
+            Visibility(
+              visible: widget.showRetryButton,
+              child: Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget.redirectTo!));
+                    },
+                    label: const Text("Retry"),
+                    icon: const Icon(Icons.refresh_outlined),
+                  ),
                 ),
               ),
             ),
