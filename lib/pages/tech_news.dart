@@ -1,3 +1,4 @@
+import 'package:daily_buzz/pages/error_occured.dart';
 import 'package:daily_buzz/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,8 @@ class TechNews extends StatefulWidget {
 class _TechNewsState extends State<TechNews> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return widget.techData['articles'] != null
+    ? ListView.builder(
       padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
       itemCount: widget.techData['articles'].length,
       itemBuilder: (context, index) {
@@ -29,6 +31,10 @@ class _TechNewsState extends State<TechNews> {
           sourceLink: article['source']['url'],
         );
       },
+    )
+    : const ErrorOccured(
+      imgName: 'no-data.svg',
+      showRetryButton: false,
     );
   }
 }
