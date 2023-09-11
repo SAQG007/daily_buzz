@@ -73,12 +73,6 @@ class _TopBarState extends State<TopBar> with SingleTickerProviderStateMixin {
           title: const Text(
             "Daily Buzz",
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.share_outlined),
-            ),
-          ],
           bottom: TabBar(
             controller: _tabController,
             tabs: _topTabs,
