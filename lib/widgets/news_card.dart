@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatefulWidget {
   final String imgLink;
   final String title;
+  final String description;
   final String newsLink;
   final String sourceName;
   final String sourceLink;
@@ -13,6 +15,7 @@ class NewsCard extends StatefulWidget {
   const NewsCard({
     required this.imgLink,
     required this.title,
+    required this.description,
     required this.newsLink,
     required this.sourceName,
     required this.sourceLink,
@@ -128,7 +131,11 @@ class _NewsCardState extends State<NewsCard> {
               ),
               const Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Share.share(
+                    "*${widget.title}*\n\n${widget.description}\n\nRead the complete news at: ${widget.newsLink}",
+                  );
+                },
                 icon: const Icon(Icons.share_outlined),
                 iconSize: 18,
               ),
