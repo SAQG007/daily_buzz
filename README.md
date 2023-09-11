@@ -1,6 +1,6 @@
 # Daily Buzz
 
-Daily Buzz is a Flutter mobile application designed to provide users with up-to-date news and articles from various categories such as technology, business, and science.
+Daily Buzz is a Flutter application designed to provide users with up-to-date news and articles from various categories such as technology, business, and science.
 
 ## Key Features
 - Multi-category News
